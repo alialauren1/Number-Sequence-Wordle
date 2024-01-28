@@ -31,7 +31,7 @@ while(True): # FSM Task 1
             print('State is ', state)
             
             # Make Secret Code
-            SC = 1234
+            SC = '0552'
             print('Secret Code:',SC)
             SC_str = str(SC)           
             SC_list_str = [char for char in SC_str]           
@@ -94,6 +94,7 @@ while(True): # FSM Task 1
                 guess_ints_flg = 0
                 nums_in_bounds_flg = 0 
                 guess_length_flg = 0
+                
                 state = S2_CODE_BREAKER
             else:
                 guess_ints_flg = 0
@@ -107,45 +108,77 @@ while(True): # FSM Task 1
             
             print(guess_str)
             
-            SC_list_str_copy = SC_list_str
+            # COPY 1 for Pass 1, COPY 2 for Pass 2
+            SC_list_str_COPY1 = SC_list_str 
+            SC_list_str_COPY2 = SC_list_str 
             guess_str_copy = guess_str
-            guess_list_str = [char for char in guess_str_copy] # strings are immutable
-            print(guess_list_str)
+            guess_list_str_COPY1 = [char for char in guess_str_copy] # strings are immutable
+            guess_list_str_COPY2 = guess_list_str_COPY1
             
-      # first pass -> matches its same placement   
+            attempts_count +=1 # keeps track of which attempt 
+            
+      # first pass -> matches its same placement  
             feedback_chars = []
+            print('FIRST PASS')
             for idx in range(4):
-                secret_char_p1=SC_list_str_copy[idx]
-                guess_char_p1=guess_list_str[idx]
+                secret_char_p1=SC_list_str_COPY1[idx]
+                guess_char_p1=guess_list_str_COPY1[idx]
                 print(secret_char_p1,guess_char_p1) 
                 
-                if secret_char_p1 == guess_char_p1:
+                if secret_char_p1 == guess_char_p1: # removes the vals that are the same 
                     feedback_chars.append('+')
+                    guess_list_str_COPY2 = guess_list_str_COPY2[:idx]+guess_list_str_COPY2[idx+1:]
+                    SC_list_str_COPY2 = SC_list_str_COPY2[:idx]+SC_list_str_COPY2[idx+1:]
+                    
                 else:
-                    feedback_chars.append('x')
+                    pass
+                
             print(feedback_chars)
+            print(guess_list_str_COPY2,SC_list_str_COPY2)
+            len_p2 = len(SC_list_str_COPY2)
             
       # second pass -> matches any placement
-            print('Words')
-            for i in range(4):
-                guess_char_p2=guess_list_str[i]
-                for j in range(4):
-                    secret_char_p2=SC_list_str_copy[j]
+            print('SECOND PASS')
+            for i in range(len_p2):
+                guess_char_p2=guess_list_str_COPY2[i]
+                for j in range(len_p2):                                  
+                    secret_char_p2=SC_list_str_COPY2[j]
                     if not i == j:
-                        print('not i==j',secret_char_p2,guess_char_p2)
+                        print('---------')
+                        print('not i == j')
+                        print('secret char',secret_char_p2)
+                        print('guess char',guess_char_p2)
+                        
                         if secret_char_p2 == guess_char_p2:
-                            print('Match, but wrong loc',j)
-                            feedback_chars[j]='-'
-                            
+                            print('Match')
+                            print('j=',j,' i=',i)
+                            SC_list_str_COPY2[j]= 'x' 
+                            print(SC_list_str_COPY2)
+                            feedback_chars.append('-')
+                            break
                         else:
-                            print('no match')
-                    else: 
-                        print('already determined')
-                print('----------')
-                print(feedback_chars)
-    
-    
+                            print('No match')
+              
+                    else:
+                        print('---------')
+                        print('already checked in P1')
+
+            print('----------')
+            feedback_chars_str = ''.join(feedback_chars)
+            print(feedback_chars_str)
+                
+                
+      # check if all ++++
+            #print('words')
+            #if feedback_chars == 
             
+      # check if attempts over           
+            print(attempts_count,'attemp(s)')
+      
+      # check if have more attempts
+      
+      # else error 
+      
             state = S3_WIN
 
 # STATE 3 IF THE CORRECT GUESS WAS MADE            
