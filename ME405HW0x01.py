@@ -21,6 +21,18 @@ state = 0 # Var to indicate the state the FSM shall run
 attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
 
 # -->>>> write function to print grid
+def print_grid():
+    
+    joined = ' | '.join(SC_str)
+    print(joined)
+    
+    print('+---+---+---+---+')
+    print('| '+joined+' |')
+    
+    # for _ in range(8):
+    #     print('+---+---+---+---+')
+    #     print('|   |   |   |   |')
+    # print('+---+---+---+---+')
 
 while(True): # FSM Task 1
     try: 
@@ -34,14 +46,11 @@ while(True): # FSM Task 1
             SC = '4321'
             print('Secret Code:',SC)
             SC_str = str(SC)           
-            SC_list_str = [char for char in SC_str]           
+            SC_list_str = [char for char in SC_str] 
+            SC_list_str_COPY = [char for char in SC_str] 
             
-            print('+---+---+---+---+')
-            print('|   |   |   |   |')
-            print('+---+---+---+---+')
-            print('|   |   |   |   |')
-            print('+---+---+---+---+')
-                                  
+            print_grid()
+                                 
             state = S1_USER_INPUT_GUESS
 
 # STATE 1 USER INPUT's THE GUESS            
@@ -50,7 +59,7 @@ while(True): # FSM Task 1
             
             # string joining
             guess_str = input('Enter a 4 numbers between 0 and 5: ')
-            print(guess_str)
+            # print(guess_str)
             
             nums_out_bounds_flg = 0
             guess_ints_flg = 0
@@ -60,12 +69,12 @@ while(True): # FSM Task 1
                 print('Empty String')
                 
             elif len(guess_str) == 4:
-                print('length is 4')
+                # print('length is 4')
                 guess_length_flg = 1 # flg will raise if length is 4
                 
                 try:
                     guess_str_ints = [int(char) for char in guess_str]            # ---> does this go thru all nums at that moment???
-                    print('passed becoming integer')
+                    # print('passed becoming integer')
                     guess_ints_flg = 1 # flg will raise if all nums integers
                     
                     for my_num in guess_str_ints:
@@ -89,7 +98,7 @@ while(True): # FSM Task 1
             else: 
                 pass
             
-            print('done assessing sequence')          
+            # print('done assessing sequence')          
             if guess_length_flg==1 and guess_ints_flg==1 and nums_out_bounds_flg==0:  
                 guess_ints_flg = 0
                 nums_in_bounds_flg = 0 
@@ -106,62 +115,63 @@ while(True): # FSM Task 1
         elif (state == S2_CODE_BREAKER): # S2: trys to break secret code          
             print ('State is ', state)
             
-            print(guess_str)
+            # print(guess_str)
             
-            SC_list_str_COPY1 = SC_list_str 
-            guess_str_copy = guess_str
-            guess_list_str_COPY1 = [char for char in guess_str_copy] # strings are immutable
+            guess_list_str = [char for char in guess_str]
+            guess_list_str_COPY1 = [char for char in guess_str] # strings are immutable, list of strs
             
             attempts_count +=1 # keeps track of which attempt 
             
       # first pass -> matches its same placement  
             feedback_chars = []
-            print('FIRST PASS')
+            # print('FIRST PASS')
             for idx in range(4):
-                secret_char_p1=SC_list_str_COPY1[idx]
+                secret_char_p1=SC_list_str_COPY[idx]
                 guess_char_p1=guess_list_str_COPY1[idx]
-                print(secret_char_p1,guess_char_p1) 
+                # print(secret_char_p1,guess_char_p1) 
                 
                 if secret_char_p1 == guess_char_p1: 
-                    print('Match (right place)')
-                    print('idx',idx)
-                    SC_list_str_COPY1[idx]='X'
+                    # print('Match (right place)')
+                    # print('idx',idx)
+                    SC_list_str_COPY[idx]='X'
                     guess_list_str_COPY1[idx]='Y'
                     feedback_chars.append('+')
                                   
                 else:
                     pass
                 
-            print(feedback_chars)
-            print(guess_list_str_COPY1,SC_list_str_COPY1)
+            # print(feedback_chars)
+            # print(guess_list_str_COPY1,SC_list_str_COPY1)
             
       # second pass -> matches any placement
-            print('SECOND PASS')
+            # print('SECOND PASS')
             for i in range(4):
                 guess_char_p2=guess_list_str_COPY1[i]
                 for j in range(4):                                  
-                    secret_char_p2=SC_list_str_COPY1[j]
+                    secret_char_p2=SC_list_str_COPY[j]
                     if not i == j:
-                        print('---------')
-                        print('not i == j')
-                        print('secret char',secret_char_p2)
-                        print('guess char',guess_char_p2)
+                        # print('---------')
+                        # print('not i == j')
+                        # print('secret char',secret_char_p2)
+                        # print('guess char',guess_char_p2)
                         
                         if secret_char_p2 == guess_char_p2:
-                            print('Match')
-                            print('j=',j,' i=',i)
-                            SC_list_str_COPY1[j]= 'A' 
-                            print(SC_list_str_COPY1)
+                            # print('Match')
+                            # print('j=',j,' i=',i)
+                            SC_list_str_COPY[j]= 'A' 
+                            # print(SC_list_str_COPY1)
                             feedback_chars.append('-')
                             break
                         else:
-                            print('No match')
+                            # print('No match')
+                            pass
               
                     else:
-                        print('---------')
-                        print('already checked in P1')
+                        pass
+                        # print('---------')
+                        # print('already checked in P1')
 
-            print('----------')
+            # print('----------')
             feedback_chars_str = ''.join(feedback_chars)
             print(feedback_chars_str)
                 
