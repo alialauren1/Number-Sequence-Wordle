@@ -112,7 +112,7 @@ while(True): # FSM Task 1
             guess_list_str = [char for char in guess_str_copy] # strings are immutable
             print(guess_list_str)
             
-      # first pass     
+      # first pass -> matches its same placement   
             feedback_chars = []
             for idx in range(4):
                 secret_char_p1=SC_list_str_copy[idx]
@@ -125,17 +125,24 @@ while(True): # FSM Task 1
                     feedback_chars.append('x')
             print(feedback_chars)
             
-      # second pass
+      # second pass -> matches any placement
             print('Words')
             for i in range(4):
                 guess_char_p2=guess_list_str[i]
                 for j in range(4):
                     secret_char_p2=SC_list_str_copy[j]
                     if not i == j:
-                        print('not i==j')
+                        print('not i==j',secret_char_p2,guess_char_p2)
+                        if secret_char_p2 == guess_char_p2:
+                            print('Match, but wrong loc',j)
+                            feedback_chars[j]='-'
+                            
+                        else:
+                            print('no match')
                     else: 
-                        print('already determined +')
+                        print('already determined')
                 print('----------')
+                print(feedback_chars)
     
     
             
