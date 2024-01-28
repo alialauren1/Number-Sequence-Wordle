@@ -23,16 +23,16 @@ attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
 # -->>>> write function to print grid
 def print_grid():
     
-    joined = ' | '.join(SC_str)
-    print(joined)
+    # joined = ' | '.join(SC_str)
+    # print(joined)
     
-    print('+---+---+---+---+')
-    print('| '+joined+' |')
-    
-    # for _ in range(8):
-    #     print('+---+---+---+---+')
-    #     print('|   |   |   |   |')
     # print('+---+---+---+---+')
+    # print('| '+joined+' |')
+    
+    for _ in range(4):
+        print('+---+---+---+---+')
+        print('|   |   |   |   |')
+    print('+---+---+---+---+')
 
 while(True): # FSM Task 1
     try: 
@@ -44,10 +44,9 @@ while(True): # FSM Task 1
             
             # Make Secret Code
             SC = '4321'
-            print('Secret Code:',SC)
+            print('CODE TO BREAK:',SC)
             SC_str = str(SC)           
             SC_list_str = [char for char in SC_str] 
-            SC_list_str_COPY = [char for char in SC_str] 
             
             print_grid()
                                  
@@ -115,20 +114,22 @@ while(True): # FSM Task 1
         elif (state == S2_CODE_BREAKER): # S2: trys to break secret code          
             print ('State is ', state)
             
-            # print(guess_str)
+            #print(guess_str)
             
             guess_list_str = [char for char in guess_str]
             guess_list_str_COPY1 = [char for char in guess_str] # strings are immutable, list of strs
+            
+            SC_list_str_COPY = [char for char in SC_str] 
             
             attempts_count +=1 # keeps track of which attempt 
             
       # first pass -> matches its same placement  
             feedback_chars = []
-            # print('FIRST PASS')
+            #print('FIRST PASS')
             for idx in range(4):
                 secret_char_p1=SC_list_str_COPY[idx]
                 guess_char_p1=guess_list_str_COPY1[idx]
-                # print(secret_char_p1,guess_char_p1) 
+                #print(secret_char_p1,guess_char_p1) 
                 
                 if secret_char_p1 == guess_char_p1: 
                     # print('Match (right place)')
@@ -140,11 +141,11 @@ while(True): # FSM Task 1
                 else:
                     pass
                 
-            # print(feedback_chars)
-            # print(guess_list_str_COPY1,SC_list_str_COPY1)
+            #print(feedback_chars)
+            #print(guess_list_str_COPY1,SC_list_str_COPY)
             
       # second pass -> matches any placement
-            # print('SECOND PASS')
+            #print('SECOND PASS')
             for i in range(4):
                 guess_char_p2=guess_list_str_COPY1[i]
                 for j in range(4):                                  
@@ -187,11 +188,14 @@ while(True): # FSM Task 1
       
       # else error 
       
-            state = S3_WIN
+            #state = S3_WIN
+            state = S1_USER_INPUT_GUESS
+            
 
 # STATE 3 IF THE CORRECT GUESS WAS MADE            
         elif (state == S3_WIN):# S3: correct guess was made           
             print ('State is ', state)
+            
  
 # STATE 4 IF THE GAME WAS LOST
         elif (state == S4_LOSS): #S4: game over, out of attempts
