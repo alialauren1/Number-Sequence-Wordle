@@ -144,9 +144,13 @@ while(True): # FSM Task 1
             guess_list_str_COPY1 = [char for char in guess_str] # strings are immutable, list of strs
             
             SC_list_str_COPY = [char for char in SC_str] 
-            
+                       
             attempts_count +=1 # keeps track of which attempt 
+            
+            # TO DO!!!! save guess_str in a different var every count
+            
             print_grid()
+            
             
       # first pass -> matches its same placement  
             feedback_chars = []
