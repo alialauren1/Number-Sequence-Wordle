@@ -22,17 +22,40 @@ attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
 
 # -->>>> write function to print grid
 def print_grid():
-    
-    # joined = ' | '.join(SC_str)
-    # print(joined)
+    tot_attempts=4
     
     # print('+---+---+---+---+')
     # print('| '+joined+' |')
-    
-    for _ in range(4):
+
+    if attempts_count == 0:
+        for _ in range(tot_attempts):
+            print('+---+---+---+---+')
+            print('|   |   |   |   |')
         print('+---+---+---+---+')
-        print('|   |   |   |   |')
-    print('+---+---+---+---+')
+        
+    elif attempts_count == 1:
+        joined_1 = ' | '.join(guess_str)
+        for _ in range(tot_attempts-attempts_count):
+            print('+---+---+---+---+')
+            print('|   |   |   |   |')
+        print('+---+---+---+---+')
+        print('| '+joined_1+' |')
+        print('+---+---+---+---+')
+        
+    elif attempts_count == 2:
+        joined_1 = ' | '.join(guess_str)
+        joined_2 = ' | '.join(guess_str)
+        for _ in range(tot_attempts-attempts_count):
+            print('+---+---+---+---+')
+            print('|   |   |   |   |')
+        print('+---+---+---+---+')
+        print('| '+joined_1+' |')
+        print('+---+---+---+---+')
+        print('| '+joined_2+' |')
+        print('+---+---+---+---+')
+    
+    else: 
+        pass
 
 while(True): # FSM Task 1
     try: 
@@ -114,6 +137,7 @@ while(True): # FSM Task 1
         elif (state == S2_CODE_BREAKER): # S2: trys to break secret code          
             print ('State is ', state)
             
+            
             #print(guess_str)
             
             guess_list_str = [char for char in guess_str]
@@ -122,6 +146,7 @@ while(True): # FSM Task 1
             SC_list_str_COPY = [char for char in SC_str] 
             
             attempts_count +=1 # keeps track of which attempt 
+            print_grid()
             
       # first pass -> matches its same placement  
             feedback_chars = []
