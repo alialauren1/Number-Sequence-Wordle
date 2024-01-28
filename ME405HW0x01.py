@@ -31,7 +31,7 @@ while(True): # FSM Task 1
             print('State is ', state)
             
             # Make Secret Code
-            SC = '0552'
+            SC = '4321'
             print('Secret Code:',SC)
             SC_str = str(SC)           
             SC_list_str = [char for char in SC_str]           
@@ -108,12 +108,9 @@ while(True): # FSM Task 1
             
             print(guess_str)
             
-            # COPY 1 for Pass 1, COPY 2 for Pass 2
             SC_list_str_COPY1 = SC_list_str 
-            SC_list_str_COPY2 = SC_list_str 
             guess_str_copy = guess_str
             guess_list_str_COPY1 = [char for char in guess_str_copy] # strings are immutable
-            guess_list_str_COPY2 = guess_list_str_COPY1
             
             attempts_count +=1 # keeps track of which attempt 
             
@@ -125,24 +122,25 @@ while(True): # FSM Task 1
                 guess_char_p1=guess_list_str_COPY1[idx]
                 print(secret_char_p1,guess_char_p1) 
                 
-                if secret_char_p1 == guess_char_p1: # removes the vals that are the same 
+                if secret_char_p1 == guess_char_p1: 
+                    print('Match (right place)')
+                    print('idx',idx)
+                    SC_list_str_COPY1[idx]='X'
+                    guess_list_str_COPY1[idx]='Y'
                     feedback_chars.append('+')
-                    guess_list_str_COPY2 = guess_list_str_COPY2[:idx]+guess_list_str_COPY2[idx+1:]
-                    SC_list_str_COPY2 = SC_list_str_COPY2[:idx]+SC_list_str_COPY2[idx+1:]
-                    
+                                  
                 else:
                     pass
                 
             print(feedback_chars)
-            print(guess_list_str_COPY2,SC_list_str_COPY2)
-            len_p2 = len(SC_list_str_COPY2)
+            print(guess_list_str_COPY1,SC_list_str_COPY1)
             
       # second pass -> matches any placement
             print('SECOND PASS')
-            for i in range(len_p2):
-                guess_char_p2=guess_list_str_COPY2[i]
-                for j in range(len_p2):                                  
-                    secret_char_p2=SC_list_str_COPY2[j]
+            for i in range(4):
+                guess_char_p2=guess_list_str_COPY1[i]
+                for j in range(4):                                  
+                    secret_char_p2=SC_list_str_COPY1[j]
                     if not i == j:
                         print('---------')
                         print('not i == j')
@@ -152,8 +150,8 @@ while(True): # FSM Task 1
                         if secret_char_p2 == guess_char_p2:
                             print('Match')
                             print('j=',j,' i=',i)
-                            SC_list_str_COPY2[j]= 'x' 
-                            print(SC_list_str_COPY2)
+                            SC_list_str_COPY1[j]= 'A' 
+                            print(SC_list_str_COPY1)
                             feedback_chars.append('-')
                             break
                         else:
