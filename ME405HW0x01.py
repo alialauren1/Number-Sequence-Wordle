@@ -20,9 +20,11 @@ S4_LOSS=4
 state = 0 # Var to indicate the state the FSM shall run
 attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
 
+guesses = [] # list to store all guesses
+
 # -->>>> write function to print grid
 def print_grid():
-    tot_attempts=4
+    tot_attempts=6
     
     # print('+---+---+---+---+')
     # print('| '+joined+' |')
@@ -34,7 +36,7 @@ def print_grid():
         print('+---+---+---+---+')
         
     elif attempts_count == 1:
-        joined_1 = ' | '.join(guess_str)
+        joined_1 = ' | '.join(guesses[attempts_count-1])
         for _ in range(tot_attempts-attempts_count):
             print('+---+---+---+---+')
             print('|   |   |   |   |')
@@ -42,16 +44,18 @@ def print_grid():
         print('| '+joined_1+' |')
         print('+---+---+---+---+')
         
-    elif attempts_count == 2:
+    elif 1 < attempts_count <= 12:
+            
         joined_1 = ' | '.join(guess_str)
         joined_2 = ' | '.join(guess_str)
+        
         for _ in range(tot_attempts-attempts_count):
             print('+---+---+---+---+')
             print('|   |   |   |   |')
-        print('+---+---+---+---+')
-        print('| '+joined_1+' |')
-        print('+---+---+---+---+')
-        print('| '+joined_2+' |')
+            
+        for n in range(attempts_count):
+            print('+---+---+---+---+')
+            print('| '+guesses[attempts_count-n-1]+' |')
         print('+---+---+---+---+')
     
     else: 
@@ -147,7 +151,8 @@ while(True): # FSM Task 1
                        
             attempts_count +=1 # keeps track of which attempt 
             
-            # TO DO!!!! save guess_str in a different var every count
+            # save current guess in a list of all guesses
+            guesses.append(guess_str)
             
             print_grid()
             
