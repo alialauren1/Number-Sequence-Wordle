@@ -18,14 +18,14 @@ S3_WIN=3
 S4_LOSS=4 
 
 state = 0 # Var to indicate the state the FSM shall run
-attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
 
-guesses = [] # list to store all guesses
-feedbacks = [] # list to store all feedback
+win_score = 0 # keeps track of how many wins
+loss_score = 0 # keeps track of how many losses
 
-# -->>>> write function to print grid
 def print_grid():
     tot_attempts=12
+    print('-----------------------------------------')
+    print('CODE TO BREAK:',SC)
 
     if attempts_count == 0:
         for _ in range(tot_attempts):
@@ -56,9 +56,13 @@ while(True): # FSM Task 1
             
             print('State is ', state)
             
+            attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
+            guesses = [] # list to store all guesses
+            feedbacks = [] # list to store all feedback
+            
             # Make Secret Code
             SC = '4321'
-            print('CODE TO BREAK:',SC)
+            # print('CODE TO BREAK:',SC)
             SC_str = str(SC)           
             SC_list_str = [char for char in SC_str] 
             
@@ -71,7 +75,7 @@ while(True): # FSM Task 1
             print('State is', state) 
             
             # string joining
-            guess_str = input('Enter a 4 numbers between 0 and 5: ')
+            guess_str = input('Enter 4 numbers between 0 and 5: ')
             # print(guess_str)
             
             nums_out_bounds_flg = 0
@@ -82,11 +86,10 @@ while(True): # FSM Task 1
                 print('Empty String')
                 
             elif len(guess_str) == 4:
-                # print('length is 4')
                 guess_length_flg = 1 # flg will raise if length is 4
                 
                 try:
-                    guess_str_ints = [int(char) for char in guess_str]            # ---> does this go thru all nums at that moment???
+                    guess_str_ints = [int(char) for char in guess_str]            
                     # print('passed becoming integer')
                     guess_ints_flg = 1 # flg will raise if all nums integers
                     
@@ -119,6 +122,8 @@ while(True): # FSM Task 1
                 
                 state = S2_CODE_BREAKER
             else:
+                time.sleep(2)
+                print_grid()
                 guess_ints_flg = 0
                 nums_in_bounds_flg = 0  
                 guess_length_flg = 0
@@ -200,28 +205,39 @@ while(True): # FSM Task 1
                 
       # check if all ++++
             #print('words')
-            #if feedback_chars == 
-            
-      # check if attempts over           
-            print(attempts_count,'attemp(s)')
+            if feedback_chars_str == '++++':
+                state = S3_WIN
+                
+      # check if attempts over      
+            elif attempts_count == 12:
+                state = S4_LOSS
       
-      # check if have more attempts
-      
-      # else error 
-      
-            #state = S3_WIN
-            state = S1_USER_INPUT_GUESS
-            
+      # check if more attempts left 
+            elif 1 <= attempts_count <12:
+                state = S1_USER_INPUT_GUESS
+                
+      # >>>>>>>>>> Error      
+            else:
+                print('error in state 2 w/ either feedback_chars_str or attempts_count')
 
 # STATE 3 IF THE CORRECT GUESS WAS MADE            
         elif (state == S3_WIN):# S3: correct guess was made           
             print ('State is ', state)
+            print('Congratulations, you have won this round')
+            win_score += 1
+            
+            state = S0_CODEMAKER
             
  
 # STATE 4 IF THE GAME WAS LOST
         elif (state == S4_LOSS): #S4: game over, out of attempts
             print ('State is ', state)
+            print('Out of attempts, you have lost')
+            loss_score += 1
             
+            state = S0_CODEMAKER
+            
+# >>>>>>>>>>. Error            
         else: 
             #raise ValueError('Invalid state')
             print('invalid state')
