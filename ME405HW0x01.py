@@ -21,13 +21,11 @@ state = 0 # Var to indicate the state the FSM shall run
 attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
 
 guesses = [] # list to store all guesses
+feedbacks = [] # list to store all feedback
 
 # -->>>> write function to print grid
 def print_grid():
-    tot_attempts=6
-    
-    # print('+---+---+---+---+')
-    # print('| '+joined+' |')
+    tot_attempts=12
 
     if attempts_count == 0:
         for _ in range(tot_attempts):
@@ -35,27 +33,16 @@ def print_grid():
             print('|   |   |   |   |')
         print('+---+---+---+---+')
         
-    elif attempts_count == 1:
-        joined_1 = ' | '.join(guesses[attempts_count-1])
-        for _ in range(tot_attempts-attempts_count):
-            print('+---+---+---+---+')
-            print('|   |   |   |   |')
-        print('+---+---+---+---+')
-        print('| '+joined_1+' |')
-        print('+---+---+---+---+')
-        
-    elif 1 < attempts_count <= 12:
-            
-        joined_1 = ' | '.join(guess_str)
-        joined_2 = ' | '.join(guess_str)
+    elif 1 <= attempts_count <= 12:
         
         for _ in range(tot_attempts-attempts_count):
             print('+---+---+---+---+')
             print('|   |   |   |   |')
             
         for n in range(attempts_count):
+            joined = ' | '.join(guesses[attempts_count-1-n])
             print('+---+---+---+---+')
-            print('| '+guesses[attempts_count-n-1]+' |')
+            print('| '+joined+' |'+feedbacks[attempts_count-1-n]) 
         print('+---+---+---+---+')
     
     else: 
@@ -151,11 +138,6 @@ while(True): # FSM Task 1
                        
             attempts_count +=1 # keeps track of which attempt 
             
-            # save current guess in a list of all guesses
-            guesses.append(guess_str)
-            
-            print_grid()
-            
             
       # first pass -> matches its same placement  
             feedback_chars = []
@@ -208,8 +190,13 @@ while(True): # FSM Task 1
 
             # print('----------')
             feedback_chars_str = ''.join(feedback_chars)
-            print(feedback_chars_str)
-                
+            # print(feedback_chars_str)
+            feedbacks.append(feedback_chars_str) # save current feedback in list of all feedback    
+
+            # save current guess in a list of all guesses
+            guesses.append(guess_str)
+            
+            print_grid()            
                 
       # check if all ++++
             #print('words')
