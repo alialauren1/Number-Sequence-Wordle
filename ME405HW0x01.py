@@ -25,9 +25,11 @@ loss_score = 0 # keeps track of how many losses
 def print_grid():
     tot_attempts=12
     print('-----------------------------------------')
+    #print('[','Wins:',win_score,'  Losses:',loss_score,']')
     print('CODE TO BREAK:',SC)
 
     if attempts_count == 0:
+        print('[','Wins:',win_score,'  Losses:',loss_score,']')
         for _ in range(tot_attempts):
             print('+---+---+---+---+')
             print('|   |   |   |   |')
@@ -226,6 +228,7 @@ while(True): # FSM Task 1
             print('Congratulations, you have won this round')
             win_score += 1
             
+            time.sleep(2)
             state = S0_CODEMAKER
             
  
@@ -235,14 +238,15 @@ while(True): # FSM Task 1
             print('Out of attempts, you have lost')
             loss_score += 1
             
+            time.sleep(2)
             state = S0_CODEMAKER
             
-# >>>>>>>>>>. Error            
+# >>>>>>>>>> Error            
         else: 
             #raise ValueError('Invalid state')
             print('invalid state')
             
-        time.sleep(1)
+        #time.sleep(1)
             
     except KeyboardInterrupt: # breaks out of program if Ctrl-C
         break
