@@ -20,8 +20,8 @@ S4_LOSS=4
 
 state = 0 # Var to indicate the state the FSM shall run
 
-win_score = 0 # keeps track of how many wins
-loss_score = 0 # keeps track of how many losses
+win_score = 0 # Var to keep track of how many wins
+loss_score = 0 # Var to keep track of how many losses
 
 def print_grid():
     tot_attempts=12
@@ -55,38 +55,33 @@ while(True): # FSM Task 1
     try: 
         
 # STATE 0 CODEMAKER    
-        if (state == S0_CODEMAKER): # S0: Set/Reset, Set Up Grid, Make Secret Code
-            
-            print('State is ', state)
+        if (state == S0_CODEMAKER): # S0: Set/Reset, Set Up Grid, Make Secret Code            
+            # print('State is ', state)
             
             attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
             guesses = [] # list to store all guesses
             feedbacks = [] # list to store all feedback
             
+            # Make Secret Code = SC
             SC = []
             SC_length = 4
             for _ in range(SC_length):
-                SN = random.randrange(0,6)
+                SN = random.randrange(0,6) # SN = Secret Number
                 SN_str = str(SN)
                 SC.append(SN_str)
             SC_str = ''.join(SC)
-            # my_string = ' '.join(my_list)
             
-            # Make Secret Code
-            #SC = '4321'
-            # print('CODE TO BREAK:',SC)
-            # SC_str = str(SC)           
+            # String to compare individual chars in later state
             SC_list_str = [char for char in SC_str] 
             
             print_grid()
                                  
-            state = S1_USER_INPUT_GUESS
+            state = S1_USER_INPUT_GUESS 
 
 # STATE 1 USER INPUT's THE GUESS            
         elif (state == S1_USER_INPUT_GUESS): # S1: remains here until user inputs proper guess                    
-            print('State is', state) 
+            # print('State is', state) 
             
-            # string joining
             guess_str = input('Enter 4 numbers between 0 and 5: ')
             # print(guess_str)
             
@@ -119,20 +114,19 @@ while(True): # FSM Task 1
             elif len(guess_str) < 4:
                 print('length is too short')  
                 
-                # add more code about is any numb is out of range        
-                
             elif len(guess_str) > 4: 
                 print('length is too long')           
             else: 
                 pass
             
-            # print('done assessing sequence')          
+            # print('done assessing sequence') 
             if guess_length_flg==1 and guess_ints_flg==1 and nums_out_bounds_flg==0:  
+                # user guess is 4 chars long, all ints, and within 0-5 bounds
                 guess_ints_flg = 0
                 nums_in_bounds_flg = 0 
-                guess_length_flg = 0
-                
+                guess_length_flg = 0              
                 state = S2_CODE_BREAKER
+            
             else:
                 time.sleep(2)
                 print_grid()
@@ -143,20 +137,18 @@ while(True): # FSM Task 1
                                                   
 # STATE 2 TRY TO BREAK THE SECRET CODE        
         elif (state == S2_CODE_BREAKER): # S2: trys to break secret code          
-            print ('State is ', state)
-            
-            
+            # print ('State is ', state)
+                      
             #print(guess_str)
             
+            # Guess & Secret Code -> List of Strs & Copies made
             guess_list_str = [char for char in guess_str]
-            guess_list_str_COPY1 = [char for char in guess_str] # strings are immutable, list of strs
-            
+            guess_list_str_COPY1 = [char for char in guess_str] # strings are immutable, list of strs            
             SC_list_str_COPY = [char for char in SC_str] 
                        
             attempts_count +=1 # keeps track of which attempt 
-            
-            
-      # first pass -> matches its same placement  
+                       
+      # first pass -> matches same placement  
             feedback_chars = []
             #print('FIRST PASS')
             for idx in range(4):
@@ -253,7 +245,6 @@ while(True): # FSM Task 1
             
 # >>>>>>>>>> Error            
         else: 
-            #raise ValueError('Invalid state')
             print('invalid state')
             
         #time.sleep(1)
