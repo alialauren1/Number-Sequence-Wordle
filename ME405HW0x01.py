@@ -10,6 +10,7 @@ Created on Wed Jan 24 23:46:10 2024
 # ME 405 HW0x01 
 
 import time
+import random
 
 S0_CODEMAKER=0
 S1_USER_INPUT_GUESS=1 
@@ -61,6 +62,15 @@ while(True): # FSM Task 1
             attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
             guesses = [] # list to store all guesses
             feedbacks = [] # list to store all feedback
+            
+            SCC = []
+            SC_length = 4
+            for _ in range(SC_length):
+                SN = random.randrange(0,6)
+                SN_str = str(SN)
+                SCC.append(SN_str)
+            SCCC = ''.join(SCC)
+            # my_string = ' '.join(my_list)
             
             # Make Secret Code
             SC = '4321'
