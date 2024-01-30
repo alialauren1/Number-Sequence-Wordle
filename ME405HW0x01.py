@@ -27,7 +27,7 @@ def print_grid():
     tot_attempts=12
     print('-----------------------------------------')
     #print('[','Wins:',win_score,'  Losses:',loss_score,']')
-    print('CODE TO BREAK:',SC)
+    print('CODE TO BREAK:',SC_str)
 
     if attempts_count == 0:
         print('[','Wins:',win_score,'  Losses:',loss_score,']')
@@ -63,19 +63,19 @@ while(True): # FSM Task 1
             guesses = [] # list to store all guesses
             feedbacks = [] # list to store all feedback
             
-            SCC = []
+            SC = []
             SC_length = 4
             for _ in range(SC_length):
                 SN = random.randrange(0,6)
                 SN_str = str(SN)
-                SCC.append(SN_str)
-            SCCC = ''.join(SCC)
+                SC.append(SN_str)
+            SC_str = ''.join(SC)
             # my_string = ' '.join(my_list)
             
             # Make Secret Code
-            SC = '4321'
+            #SC = '4321'
             # print('CODE TO BREAK:',SC)
-            SC_str = str(SC)           
+            # SC_str = str(SC)           
             SC_list_str = [char for char in SC_str] 
             
             print_grid()
