@@ -225,7 +225,7 @@ while(True): # FSM Task 1
 
 # STATE 3 IF THE CORRECT GUESS WAS MADE            
         elif (state == S3_WIN):# S3: correct guess was made           
-            print ('State is ', state)
+            #print ('State is ', state)
             print('Congratulations, you have won this round')
             win_score += 1
             
@@ -235,7 +235,7 @@ while(True): # FSM Task 1
  
 # STATE 4 IF THE GAME WAS LOST
         elif (state == S4_LOSS): #S4: game over, out of attempts
-            print ('State is ', state)
+            #print ('State is ', state)
             print('Out of attempts, you have lost')
             loss_score += 1
             
