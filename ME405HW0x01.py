@@ -123,7 +123,7 @@ while(True): # FSM Task 1
             if guess_length_flg==1 and guess_ints_flg==1 and nums_out_bounds_flg==0:  
                 # user guess is 4 chars long, all ints, and within 0-5 bounds
                 guess_ints_flg = 0
-                nums_in_bounds_flg = 0 
+                nums_out_bounds_flg = 0 
                 guess_length_flg = 0              
                 state = S2_CODE_BREAKER
             
@@ -131,7 +131,7 @@ while(True): # FSM Task 1
                 time.sleep(2)
                 print_grid()
                 guess_ints_flg = 0
-                nums_in_bounds_flg = 0  
+                nums_out_bounds_flg = 0  
                 guess_length_flg = 0
                 state = S1_USER_INPUT_GUESS
                                                   
@@ -208,7 +208,6 @@ while(True): # FSM Task 1
             print_grid()            
                 
       # check if all ++++
-            #print('words')
             if feedback_chars_str == '++++':
                 state = S3_WIN
                 
