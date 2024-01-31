@@ -55,10 +55,10 @@ while(True): # FSM Task 1
     try: 
         
 # STATE 0 CODEMAKER    
-        if (state == S0_CODEMAKER): # S0: Set/Reset, Set Up Grid, Make Secret Code            
+        if (state == S0_CODEMAKER): # S0:Set/Reset, Make Secret Code            
             # print('State is ', state)
             
-            attempts_count = 0 # Counter Var to track runs through CODE_BREAKER state
+            attempts_count = 0 #Counter Var tracks runs thru CODE_BREAKER state
             guesses = [] # list to store all guesses
             feedbacks = [] # list to store all feedback
             
@@ -74,12 +74,12 @@ while(True): # FSM Task 1
             # String to compare individual chars in later state
             SC_list_str = [char for char in SC_str] 
             
-            print_grid()
+            print_grid() # prints grid
                                  
             state = S1_USER_INPUT_GUESS 
 
 # STATE 1 USER INPUT's THE GUESS            
-        elif (state == S1_USER_INPUT_GUESS): # S1: remains here until user inputs proper guess                    
+        elif (state == S1_USER_INPUT_GUESS): #S1: here until user inputs allowable guess                
             # print('State is', state) 
             
             guess_str = input('Enter 4 numbers between 0 and 5: ')
@@ -143,7 +143,7 @@ while(True): # FSM Task 1
             
             # Guess & Secret Code -> List of Strs & Copies made
             guess_list_str = [char for char in guess_str]
-            guess_list_str_COPY1 = [char for char in guess_str] # strings are immutable, list of strs            
+            guess_list_str_COPY1 = [char for char in guess_str] # list of strs            
             SC_list_str_COPY = [char for char in SC_str] 
                        
             attempts_count +=1 # keeps track of which attempt 
@@ -161,8 +161,7 @@ while(True): # FSM Task 1
                     # print('idx',idx)
                     SC_list_str_COPY[idx]='X'
                     guess_list_str_COPY1[idx]='Y'
-                    feedback_chars.append('+')
-                                  
+                    feedback_chars.append('+')                                
                 else:
                     pass
                 
@@ -191,16 +190,15 @@ while(True): # FSM Task 1
                         else:
                             # print('No match')
                             pass
-              
                     else:
                         pass
                         # print('---------')
-                        # print('already checked in P1')
+                        # print('already checked in P1') 
 
             # print('----------')
             feedback_chars_str = ''.join(feedback_chars)
             # print(feedback_chars_str)
-            feedbacks.append(feedback_chars_str) # save current feedback in list of all feedback    
+            feedbacks.append(feedback_chars_str) # list of all feedback    
 
             # save current guess in a list of all guesses
             guesses.append(guess_str)
@@ -221,7 +219,7 @@ while(True): # FSM Task 1
                 
       # >>>>>>>>>> Error      
             else:
-                print('error in state 2 w/ either feedback_chars_str or attempts_count')
+                print('error in S2 w/feedback_chars_str or attempts_count')
 
 # STATE 3 IF THE CORRECT GUESS WAS MADE            
         elif (state == S3_WIN):# S3: correct guess was made           
@@ -245,8 +243,6 @@ while(True): # FSM Task 1
 # >>>>>>>>>> Error            
         else: 
             print('invalid state')
-            
-        #time.sleep(1)
             
     except KeyboardInterrupt: # breaks out of program if Ctrl-C
         break
